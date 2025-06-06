@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class RhythmInput : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class RhythmInput : MonoBehaviour
     private InputAction trig2;
     private InputAction trig3;
     private InputAction trig4;
+
+    [SerializeField] private Image[] triggerImages;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,21 +23,40 @@ public class RhythmInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (trig1.triggered)
+        // Reset images if triggers are not pressed
+        for (int i = 0; i < triggerImages.Length; i++)
+        {
+            triggerImages[i].color = Color.red; // Reset to red
+        }
+        
+        if (trig1.IsPressed())
         {
             Debug.Log("Trigger 1 pressed");
+            UpdateImage(0, true);
         }
-        if (trig2.triggered)
+        if (trig2.IsPressed())
         {
             Debug.Log("Trigger 2 pressed");
+            UpdateImage(1, true);
         }
-        if (trig3.triggered)
+        if (trig3.IsPressed())
         {
             Debug.Log("Trigger 3 pressed");
+            UpdateImage(2, true);
         }
-        if (trig4.triggered)
+        if (trig4.IsPressed())
         {
             Debug.Log("Trigger 4 pressed");
+            UpdateImage(3, true);
+        }
+        
+    }
+    
+    void UpdateImage(int index, bool isActive)
+    {
+        if (index >= 0 && index < triggerImages.Length)
+        {
+            triggerImages[index].color = isActive ? Color.green : Color.red;
         }
     }
 }
