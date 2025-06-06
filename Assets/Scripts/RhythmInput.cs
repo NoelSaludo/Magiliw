@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class RhythmInput : MonoBehaviour
@@ -9,8 +10,8 @@ public class RhythmInput : MonoBehaviour
     private InputAction trig3;
     private InputAction trig4;
 
-    [SerializeField] private Image[] triggerImages;
-    
+    [SerializeField] private GameObject[] triggerGO;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,39 +25,62 @@ public class RhythmInput : MonoBehaviour
     void Update()
     {
         // Reset images if triggers are not pressed
-        for (int i = 0; i < triggerImages.Length; i++)
+        for (int i = 0; i < triggerGO.Length; i++)
         {
-            triggerImages[i].color = Color.red; // Reset to red
+            if (triggerGO[i].TryGetComponent<Collider>(out Collider col))
+                col.enabled = false;
+            triggerGO[i].transform.localScale = Vector3.one;
         }
-        
+
         if (trig1.IsPressed())
         {
-            Debug.Log("Trigger 1 pressed");
-            UpdateImage(0, true);
+            ActivateTrigger(0);
         }
+
         if (trig2.IsPressed())
         {
-            Debug.Log("Trigger 2 pressed");
-            UpdateImage(1, true);
+            ActivateTrigger(1);
         }
+
         if (trig3.IsPressed())
         {
-            Debug.Log("Trigger 3 pressed");
-            UpdateImage(2, true);
+            ActivateTrigger(2);
         }
+
         if (trig4.IsPressed())
         {
-            Debug.Log("Trigger 4 pressed");
-            UpdateImage(3, true);
+            ActivateTrigger(3);
         }
-        
     }
-    
-    void UpdateImage(int index, bool isActive)
+
+    void UpdateTrigger(int index)
     {
-        if (index >= 0 && index < triggerImages.Length)
+        if (index >= 0 && index < triggerGO.Length)
         {
-            triggerImages[index].color = isActive ? Color.green : Color.red;
+            triggerGO[index].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+        }
+        else
+        {
+            Debug.LogWarning($"Index {index} is out of bounds for triggerGO array");
+        }
+    }
+
+    void ActivateTrigger(int index)
+    {
+        if (index >= 0 && index < triggerGO.Length)
+        {
+            if (triggerGO[index].TryGetComponent<Collider>(out Collider triggerCollider))
+            {
+                if (triggerCollider != null)
+                {
+                    triggerCollider.enabled = true; // Enable the collider
+                    UpdateTrigger(index); // Update the image to green
+                }
+                else
+                {
+                    Debug.LogWarning($"No Collider2D found on trigger image at index {index}");
+                }
+            }
         }
     }
 }
