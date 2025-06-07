@@ -11,6 +11,7 @@ public class RhythmInput : MonoBehaviour
     private InputAction trig4;
 
     [SerializeField] private GameObject[] triggerGO;
+    [SerializeField] private GameManager gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,6 +20,8 @@ public class RhythmInput : MonoBehaviour
         trig2 = InputSystem.actions.FindActionMap("Player").FindAction("Trigger2");
         trig3 = InputSystem.actions.FindActionMap("Player").FindAction("Trigger3");
         trig4 = InputSystem.actions.FindActionMap("Player").FindAction("Trigger4");
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame

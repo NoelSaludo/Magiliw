@@ -157,6 +157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  perfectThreshold: 0.2
+  goodThreshold: 0.5
+  feedbackTextPrefab: {fileID: 6419227141943525523, guid: 43fbed484b5726b499ffcdb24bef9617, type: 3}
 --- !u!54 &3468512414075239720
 Rigidbody:
   m_ObjectHideFlags: 0
