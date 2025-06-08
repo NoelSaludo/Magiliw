@@ -565,6 +565,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "EndSong",
+                    "type": "Button",
+                    "id": "8499542b-603b-45c3-972a-458afa65ccc5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -620,6 +629,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50df8bf1-e31d-4e6c-9cc5-8116bb20d226",
+                    "path": "<Keyboard>/end",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EndSong",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
