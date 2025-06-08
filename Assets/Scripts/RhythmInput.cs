@@ -12,7 +12,7 @@ public class RhythmInput : MonoBehaviour
 
     [SerializeField] private GameObject[] triggerGO;
     [SerializeField] private GameManager gameManager;
-
+    [SerializeField] private AudioSource audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,24 +38,32 @@ public class RhythmInput : MonoBehaviour
             triggerGO[i].transform.localScale = Vector3.one;
         }
 
-        if (trig1.IsPressed())
+        if (trig1.WasPressedThisFrame())
         {
             ActivateTrigger(0);
+            if (audioSource.clip != null)
+                audioSource.PlayOneShot(audioSource.clip);
         }
 
-        if (trig2.IsPressed())
+        if (trig2.WasPressedThisFrame())
         {
             ActivateTrigger(1);
+            if (audioSource.clip != null)
+                audioSource.PlayOneShot(audioSource.clip);
         }
 
-        if (trig3.IsPressed())
+        if (trig3.WasPressedThisFrame())
         {
             ActivateTrigger(2);
+            if (audioSource.clip != null)
+                audioSource.PlayOneShot(audioSource.clip);
         }
 
-        if (trig4.IsPressed())
+        if (trig4.WasPressedThisFrame())
         {
             ActivateTrigger(3);
+            if (audioSource.clip != null)
+                audioSource.PlayOneShot(audioSource.clip);
         }
     }
 
@@ -90,3 +98,4 @@ public class RhythmInput : MonoBehaviour
         }
     }
 }
+

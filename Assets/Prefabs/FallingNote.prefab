@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  perfectThreshold: 0.3
-  goodThreshold: 0.7
+  perfectThreshold: 0.5
+  goodThreshold: 1
   feedbackTextPrefab: {fileID: 6419227141943525523, guid: 43fbed484b5726b499ffcdb24bef9617, type: 3}
 --- !u!65 &5067041011628943750
 BoxCollider:
