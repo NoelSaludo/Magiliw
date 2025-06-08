@@ -107,7 +107,7 @@ public class DialogueSystem : MonoBehaviour
             startMinigameButton.SetActive(false);
         }
         
-        if (stepIndex == 65)
+        if (stepIndex == 66)
         {
             SceneManager.LoadScene("Scenes/TitleScreen");
         }
