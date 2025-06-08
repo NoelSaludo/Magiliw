@@ -10,28 +10,34 @@ public class SceneRouter : MonoBehaviour
     [Header("Canvas to Monitor")]
     public Canvas targetCanvas;
 
-#if UNITY_EDITOR
-    [Header("Scene to Load (Drag Scene Asset)")]
-    public SceneAsset sceneToLoad;
-    [HideInInspector] public string sceneName;
-#else
+    [Header("Scene to Load (Name as string)")]
     [SerializeField] private string sceneName;
+
+#if UNITY_EDITOR
+    [Header("Optional: Drag Scene Asset for Editor")]
+    public SceneAsset sceneAsset;
+
+    private void OnValidate()
+    {
+        if (sceneAsset != null)
+        {
+            sceneName = sceneAsset.name;
+        }
+    }
 #endif
 
     private bool hasSwitched = false;
 
     void Start()
     {
-#if UNITY_EDITOR
-        if (sceneToLoad != null)
-        {
-            sceneName = sceneToLoad.name;
-        }
-#endif
-
         if (targetCanvas == null)
         {
             Debug.LogError("SceneRouter: Target canvas is not assigned.");
+        }
+
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            Debug.LogError("SceneRouter: Scene name is not specified.");
         }
     }
 
@@ -39,8 +45,8 @@ public class SceneRouter : MonoBehaviour
     {
         if (hasSwitched || targetCanvas == null) return;
 
-        // Trigger scene change when canvas becomes active
-        if (targetCanvas.gameObject.activeInHierarchy)
+        // Check if canvas is enabled and active in hierarchy
+        if (targetCanvas.enabled && targetCanvas.gameObject.activeInHierarchy)
         {
             hasSwitched = true;
             SceneManager.LoadScene(sceneName);
