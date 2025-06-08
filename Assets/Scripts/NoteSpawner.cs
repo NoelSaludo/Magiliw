@@ -10,5 +10,6 @@ public class NoteSpawner : MonoBehaviour
     {
         Vector2 position = spawnArea[index].transform.position;
         GameObject note = Instantiate(notePrefab, position, Quaternion.identity);
+        note.transform.Rotate(Vector3.forward, 90f);
     }
 }
