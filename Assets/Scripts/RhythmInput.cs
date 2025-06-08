@@ -27,6 +27,9 @@ public class RhythmInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameManager.getState() == GameState.End)
+            return;
+        
         // Reset images if triggers are not pressed
         for (int i = 0; i < triggerGO.Length; i++)
         {

@@ -167,5 +167,10 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    public GameState getState()
+    {
+        return gameState;
+    }
 }
 
