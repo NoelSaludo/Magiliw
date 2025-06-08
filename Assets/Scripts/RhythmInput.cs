@@ -13,6 +13,10 @@ public class RhythmInput : MonoBehaviour
     [SerializeField] private GameObject[] triggerGO;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private AudioSource audioSource;
+
+    // Track previous trigger states to avoid repeated PlayOneShot per frame
+    bool[] prevPressed = new bool[4];
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,33 +42,43 @@ public class RhythmInput : MonoBehaviour
             triggerGO[i].transform.localScale = Vector3.one;
         }
 
-        if (trig1.WasPressedThisFrame())
+        bool[] currPressed = new bool[4];
+        currPressed[0] = trig1.IsPressed();
+        currPressed[1] = trig2.IsPressed();
+        currPressed[2] = trig3.IsPressed();
+        currPressed[3] = trig4.IsPressed();
+
+        if (currPressed[0])
         {
             ActivateTrigger(0);
-            if (audioSource.clip != null)
+            if (!prevPressed[0] && audioSource.clip != null)
                 audioSource.PlayOneShot(audioSource.clip);
         }
 
-        if (trig2.WasPressedThisFrame())
+        if (currPressed[1])
         {
             ActivateTrigger(1);
-            if (audioSource.clip != null)
+            if (!prevPressed[1] && audioSource.clip != null)
                 audioSource.PlayOneShot(audioSource.clip);
         }
 
-        if (trig3.WasPressedThisFrame())
+        if (currPressed[2])
         {
             ActivateTrigger(2);
-            if (audioSource.clip != null)
+            if (!prevPressed[2] && audioSource.clip != null)
                 audioSource.PlayOneShot(audioSource.clip);
         }
 
-        if (trig4.WasPressedThisFrame())
+        if (currPressed[3])
         {
             ActivateTrigger(3);
-            if (audioSource.clip != null)
+            if (!prevPressed[3] && audioSource.clip != null)
                 audioSource.PlayOneShot(audioSource.clip);
         }
+
+        // Update previous pressed states
+        for (int i = 0; i < 4; i++)
+            prevPressed[i] = currPressed[i];
     }
 
     void UpdateTrigger(int index)
