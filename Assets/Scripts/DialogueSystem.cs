@@ -13,6 +13,7 @@ public class DialogueSystem : MonoBehaviour
         public string text;
         public Sprite background;
         public Sprite character;
+        public AudioClip music;
     }
 
     public DialogueStep[] steps;
@@ -21,6 +22,8 @@ public class DialogueSystem : MonoBehaviour
     public GameObject nextButton;
     public GameObject startMinigameButton;
 
+    public AudioSource musicSource;
+    
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI nameText;
     public Image backgroundImage;
@@ -32,6 +35,16 @@ public class DialogueSystem : MonoBehaviour
 
     public void Start()
     {
+        if (GameStates.ReturnStep != -1)
+        {
+            currentStep = GameStates.ReturnStep;
+            GameStates.ReturnStep = -1; // Reset so future scenes start from 0
+        }
+        else
+        {
+            currentStep = 0;
+        }
+
         ShowStep(currentStep);
     }
 
@@ -76,6 +89,12 @@ public class DialogueSystem : MonoBehaviour
         }
         
         nameText.text = step.name;
+        
+        if (step.music != null && musicSource.clip != step.music)
+        {
+            musicSource.clip = step.music;
+            musicSource.Play();
+        }
 
         if (stepIndex == 34)
         {
@@ -86,6 +105,11 @@ public class DialogueSystem : MonoBehaviour
         {
             nextButton.SetActive(true);
             startMinigameButton.SetActive(false);
+        }
+        
+        if (stepIndex == 65)
+        {
+            SceneManager.LoadScene("Scenes/TitleScreen");
         }
         
         if (typingCoroutine != null)
@@ -110,6 +134,7 @@ public class DialogueSystem : MonoBehaviour
     
     public void StartMinigame()
     {
+        GameStates.ReturnStep = currentStep + 1; // Resume from the *next* VN step
         SceneManager.LoadScene("Scenes/MainGame");
     }
 }
