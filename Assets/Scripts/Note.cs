@@ -20,8 +20,8 @@ public class Note : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.down * (speed * Time.deltaTime));
-        if (transform.position.y < -6f)
+        transform.Translate(Vector3.left * (speed * Time.deltaTime));
+        if (transform.position.y < -10f)
         {
             gameManager.AddScore(ScoreType.Miss);
             CreateFeedbackText(ScoreType.Miss, new Vector3(0, 5, 0));
@@ -34,6 +34,7 @@ public class Note : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Note hit by player");
             float distance = Mathf.Abs(transform.position.y - other.transform.position.y);
 
             if (distance <= perfectThreshold)
