@@ -42,7 +42,7 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
-            currentStep = 0;
+            currentStep = 35;
         }
 
         ShowStep(currentStep);
