@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
 
     public void OnEndButtonPressed()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Scenes/VisualNovel");
     }
 
     public void AddScore(ScoreType st)
